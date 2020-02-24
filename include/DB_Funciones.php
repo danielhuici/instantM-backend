@@ -20,7 +20,7 @@ class DB_Funciones {
      * Registrar usuario 
      * return: $user
      */
-    public function storeUser($name, $mail, $password) {
+    public function storeUser($name, $password, $mail) {
         $hash = $this->hashSSHA($password);
         // $encrypted_password = $hash["encrypted"]; // Encriptada en hash (MD5)
   

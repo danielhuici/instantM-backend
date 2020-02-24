@@ -82,7 +82,7 @@ class DB_Funciones {
         $consulta->execute();
         $consulta->store_result();
   
-        if ($stmt->num_rows > 0) { // Usuario existe
+        if ($consulta->num_rows > 0) { // Usuario existe
             $consulta->close();
             return true;
         } else { // Usuario no existe

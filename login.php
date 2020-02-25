@@ -5,12 +5,12 @@ $db = new DB_Funciones();
 // json response array
 $response = array("error" => FALSE);
   
-if (isset($_POST['mail']) && isset($_POST['password'])) {
-    $mail = $_POST['mail'];
+if (isset($_POST['name']) && isset($_POST['password'])) {
+    $name = $_POST['name'];
     $password = $_POST['password'];
   
     // get the user by email and password
-    $user = $db->getUserByEmailAndPassword($mail, $password);
+    $user = $db->getUserByEmailAndPassword($name, $password);
   
     if ($user != false) {
         // Usuario encontrado!

@@ -48,11 +48,11 @@ class DB_Funciones {
      * Obtener usuario por usuario y contraseña
 	 * return: $user
      */
-    public function getUserByEmailAndPassword($mail, $password) {
+    public function getUserByEmailAndPassword($name, $password) {
   
-        $stmt = $this->conn->prepare("SELECT * FROM user_account WHERE mail = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM user_account WHERE name = ?");
   
-        $stmt->bind_param("s", $mail);
+        $stmt->bind_param("s", $name);
   
         if ($stmt->execute()) {
             $user = $stmt->get_result()->fetch_assoc();

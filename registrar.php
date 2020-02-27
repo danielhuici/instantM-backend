@@ -25,13 +25,13 @@ if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['mail']) 
         } else {
             // user failed to store
             $response["error"] = TRUE;
-            $response["error_msg"] = "Unknown error occurred in registration!";
+            $response["error_msg"] = "¡Error inesperado!";
         }
     }
 	
 } else {
     $response["error"] = TRUE;
-    $response["error_msg"] = "Faltan parametros!";
+    $response["error_msg"] = "¡Faltan parametros!";
 }
 
 echo json_encode($response);

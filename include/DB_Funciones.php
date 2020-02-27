@@ -43,6 +43,30 @@ class DB_Funciones {
             return false;
         }
     }
+	
+	/**
+     * Crear grupo 
+     * return: $group
+     */
+    public function storeGroup($name, $id_creator_user) {  
+        $stmt = $this->conn->prepare("INSERT INTO chat_group(name, id_creator_user) VALUES(?, ?)");
+		$stmt->bind_param("si", $name, $id_creator_user);
+        $result = $stmt->execute();
+        $stmt->close();
+  
+        // Creación correcta?
+        if ($result) {
+            $stmt = $this->conn->prepare("SELECT * FROM chat_group WHERE name = ?");
+            $stmt->bind_param("s", $name);
+            $stmt->execute();
+            $group = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+  
+            return $group;
+        } else {
+            return false;
+        }
+    }
   
     /**
      * Obtener usuario por usuario y contraseña
@@ -71,6 +95,28 @@ class DB_Funciones {
             return NULL;
         }
     }
+	
+	/**
+     * Obtener id por usuario
+	 * return: $user
+     */
+    public function getUserIdByUsername($username) {
+  
+        $stmt = $this->conn->prepare("SELECT * FROM user_account WHERE name = ?");
+        $stmt->bind_param("s", $username);
+  
+        if ($stmt->execute()) {
+            $user = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+  
+           return $user;
+        } else {
+            return NULL;
+        }
+    }
+  
+	
+	
   
     /**
      * Comprueba si existe usuario

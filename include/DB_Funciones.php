@@ -115,7 +115,25 @@ class DB_Funciones {
         }
     }
   
-	
+	/**
+     * Obtener grupo por id usuario
+	 * return: $groups
+     */
+    public function getGroupsByUserId($id_user) {
+  
+        $stmt = $this->conn->prepare("SELECT name FROM chat_group WHERE id_chat_group =           
+                                            (SELECT id_chat_group FROM user_partof_group WHERE id_user = ?); ");
+        $stmt->bind_param("i", $id_user);
+  
+        if ($stmt->execute()) {
+            $groups = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+  
+           return $groups;
+        } else {
+            return NULL;
+        }
+    }
 	
   
     /**

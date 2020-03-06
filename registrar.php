@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
  require_once 'include/DB_Funciones.php';
 $db = new DB_Funciones();
   

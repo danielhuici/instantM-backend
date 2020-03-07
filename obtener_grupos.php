@@ -10,15 +10,11 @@ if (isset($_POST['id_user'])) {
 	
 	// create a new group
 	$groups = $db->getGroupsByUserId($id_user);
-	if ($groups) {
-		// group stored successfully
+ 
+  error_log("TEST:", $groups);
+		// group got successfully
 		$response["error"] = FALSE;
 		$response["groups"] = $groups;
-	} else {
-		// group failed to store
-		$response["error"] = TRUE;
-		$response["error_msg"] = "¡Error inesperado al obtener grupos! ";
-	}
 	
 } else {
     $response["error"] = TRUE;

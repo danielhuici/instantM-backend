@@ -120,19 +120,18 @@ class DB_Funciones {
 	 * return: $groups
      */
     public function getGroupsByUserId($id_user) {
-  
-        $stmt = $this->conn->prepare("SELECT name FROM chat_group WHERE id_chat_group =           
-                                            (SELECT id_chat_group FROM user_partof_group WHERE id_user = ?); ");
-        $stmt->bind_param("i", $id_user);
-  
-        if ($stmt->execute()) {
-            $groups = $stmt->get_result()->fetch_assoc();
-            $stmt->close();
-  
-           return $groups;
-        } else {
-            return NULL;
+        $query =  "SELECT * FROM chat_group WHERE id_chat_group =           
+                                            (SELECT id_chat_group FROM user_partof_group WHERE id_user = '$id_user')";
+        
+        $con = mysqli_connect("34.69.44.48","root","CentralTeruel1.","instantM");
+       
+        $result = mysqli_query($con, "SELECT name FROM chat_group WHERE id_chat_group IN (SELECT id_chat_group FROM user_partof_group WHERE id_user = $id_user)");
+
+        while($r = mysqli_fetch_assoc($result)){
+            $rows[] = array('data' => $r);
         }
+        
+        return $rows;                                            
     }
 	
   

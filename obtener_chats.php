@@ -6,13 +6,14 @@ $db = new DB_Funciones();
 $response = array("error" => FALSE);
   
 if (isset($_POST['user_id'])) {
-	$user_id = $_POST['user_id'];
+  $user_id = $_POST['user_id'];
   $groups = $db->getGroupsByUserId($user_id);
 
-		// group got successfully
-		$response["error"] = FALSE;
-		$response["groups"] = $groups;
-	
+  // group got successfully
+  $response["error"] = FALSE;
+  $response["group_chats"] = $groups;
+  $contacts = $db->getPrivateChatsOfUser($user_id);
+  $response["private_chats"] = $contacts;
 } else {
     $response["error"] = TRUE;
     $response["error_msg"] = "¡Faltan parametros!";

@@ -28,6 +28,7 @@
    $response["error"] = FALSE;
    $db->addUserAdmin($user_id, $group["id_chat_group"]);
    $db->setUserMember($user_id, $group["id_chat_group"]);
+
    $response["id"] = $group["id_chat_group"];
   } elseif(!$group) {
   // group failed to store

@@ -6,12 +6,13 @@ $db = new DB_Funciones();
 $response = array("error" => FALSE);
   
 if (isset($_POST['user_id'])) {
-	$user_id = $_POST['user_id'];
-  $groups = $db->getGroupsByUserId($user_id);
-
-		// group got successfully
+	$user_id = $_POST['user_id']; 
+	$contacts = $db->getcontactsByUserId($user_id);
+ 
+  error_log("TEST:", $contacts);
+		// contact got successfully
 		$response["error"] = FALSE;
-		$response["groups"] = $groups;
+		$response["contacts"] = $contacts;
 	
 } else {
     $response["error"] = TRUE;

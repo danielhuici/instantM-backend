@@ -481,11 +481,11 @@ class DB_Funciones {
     }
     
     public function recoverPrivateMessages($room_name) {
-        $result = mysqli_query($this->conn, "SELECT pm.message, ua.name 
-                FROM instantM.private_message pm, instantM.private_room pr, instantM.user_account ua 
-                WHERE (pm.id_sender_user = pr.user1 OR pm.id_sender_user = pr.user2)
-                      AND pm.id_sender_user = ua.id_user AND pr.room_name = $room_name
-                ORDER BY pm.id_message");
+        $result = mysqli_query($this->conn, "SELECT pm.message, ua.name
+                    FROM instantM.private_message pm, instantM.private_room pr, instantM.user_account ua 
+                    WHERE ((pr.user1 = pm.id_receiver_user AND pr.user2 = pm.id_sender_user) OR (pr.user1 = pm.id_sender_user AND pr.user2 = pm.id_receiver_user))
+                    AND pr.room_name = $room_name AND id_sender_user = ua.id_user 
+                    ORDER BY pm.id_message");
         while($r = mysqli_fetch_assoc($result)){
             $rows[] = array('data' => $r);
         }
@@ -503,8 +503,8 @@ class DB_Funciones {
     
     public function createChatroom($user1, $user2) {
         $room_name = $user1.$user2;
-        $stmt = $this->conn->prepare("INSERT INTO private_room(user1, user2, room_name) VALUES(?, ?, ?)");
-		$stmt->bind_param("iis", $user1, $user2, $room_name);
+        $stmt = $this->conn->prepare("INSERT INTO instantM.private_room(user1, user2, room_name) VALUES(?, ?, ?)");
+		$stmt->bind_param("sss", $user1, $user2, $room_name);
         $result = $stmt->execute();
         $stmt->close();
     }

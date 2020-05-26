@@ -13,7 +13,7 @@ if (isset($_POST['user1']) && isset($_POST['user2'])) {
  
    $room = $db->getChatroom($user1, $user2);
 
-   if($response == null) {
+   if($room == null) {
      $db->createChatroom($user1, $user2);
      $room = $db->getChatroom($user1, $user2);
    }
